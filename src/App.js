@@ -1,55 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import Recipe from "./recipe"
+import Image from "./image"
 import './App.css';
 
 const App = ()  => {
 
-  const APP_ID = 'zz';
-  const APP_KEY = 'zz';
-
-  const [recipes,setRecipes] = useState([]);
-  const [search,setSearch] = useState('');
-  const [query,setQuery] = useState('chicken');
+  const [images,setImages] = useState(0);
 
   useEffect(() => {
-    getRecipes();
-  }, [query]);
+    getImages();
+  }, []);
 
-  const getRecipes = async () => {
+  //Get an APIkey from https://api.nasa.gov/ and add it below:
+  const getImages = async () => {
     const response = await fetch(
-      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
-    );
+      "https://api.nasa.gov/planetary/apod?api_key=YOUR_API_KEY");
     const data = await response.json();
-    setRecipes(data.hits);
+    setImages(data);
     console.log(data);
   };
 
-  const updateSearch = e => {
-    setSearch(e.target.value);
-  }
-
-  const getSearch = e => {
-    e.preventDefault();
-    setQuery(search);
-    setSearch('');
-  }
 
   return (
     <div className="App">
-      <form className="search-form" onSubmit={getSearch}>
-        <input className="search-bar" type="text" value={search} onChange={updateSearch}></input>
-        <button className="search-button" type="submit">Search</button>
-      </form>
-      <div className="recipes">
-      {recipes.map(recipe => (
-        <Recipe 
-        key={recipe.recipe.label}         
-        title={recipe.recipe.label} 
-        calories={recipe.recipe.calories} 
-        image={recipe.recipe.image}
-        ingredients={recipe.recipe.ingredients}
+      <div className="images">
+      {
+        <Image
+        url={images.url}
+        copyright={images.copyright}
+        title={images.title}         
+        explanation={images.explanation}
+        
         />
-      ))}
+     }
       </div>
     </div>
   );
