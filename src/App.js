@@ -4,38 +4,40 @@ import './App.css';
 
 const App = ()  => {
 
-  const [images,setImages] = useState(0);
+  const [images,setImages] = useState([]);
 
   useEffect(() => {
     getImages();
   }, []);
 
-  //Get an APIkey from https://api.nasa.gov/ and add it below:
   const getImages = async () => {
+    const headers = { 'Content-Type': 'application/json', 'authorizationToken': 'allow' }
     const response = await fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=YOUR_API_KEY");
+      "https://9momhjfvcj.execute-api.us-east-1.amazonaws.com/default/nasa-daily-image",{ headers });
     const data = await response.json();
-    setImages(data);
+    setImages(data.body);
     console.log(data);
   };
 
-
+  if (images) {
   return (
     <div className="App">
       <div className="images">
-      {
-        <Image
-        url={images.url}
+
+
+        <Image 
         copyright={images.copyright}
-        title={images.title}         
-        explanation={images.explanation}
-        
+        url={images.url}  
+        title={images.title}  
+        explanation={images.explanation}           
         />
-     }
+
       </div>
     </div>
   );
-
+      }
+      else
+      {return null}
 }
 
 export default App;

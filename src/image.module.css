@@ -11,8 +11,15 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
+    font-size: 20px;
 }
 
 .image{
-    border-radius: 50%;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgb(71, 71, 71);
+}
+
+p {
+    font-size: 20px;
+    padding: 20px;
 }
