@@ -11,7 +11,7 @@ const App = ()  => {
   }, []);
 
   const getImages = async () => {
-    const headers = { 'Content-Type': 'application/json', 'authorizationToken': 'allow' }
+    const headers = { 'Content-Type': 'application/json', 'authorizationToken': 'allow','x-api-key': 'BBFpMSexiSaaIlmjFdFOr2JNYMrc8KgJ54n8rHBR' }
     const response = await fetch(
       "https://9momhjfvcj.execute-api.us-east-1.amazonaws.com/default/nasa-daily-image",{ headers });
     const data = await response.json();
